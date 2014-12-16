@@ -127,7 +127,7 @@
       Nimbus.Auth.setup(JSON.stringify(Nimbus.Auth.sync_services.Firebase));
       server = Nimbus.Firebase.server;
       Nimbus.Client.Firebase.createUser(data, function(res) {
-        if (!res.err) {
+        if (!res.error) {
           bootbox.alert('Your account has been created, you can sign in now.', function() {
             Nimbus.Auth.authorize('Firebase', {
               'email': data.email,
@@ -136,7 +136,7 @@
             });
           });
         } else {
-          bootbox.alert('Register Error: ' + res.err.code);
+          bootbox.alert('Register Error: ' + res.error.code);
         }
       });
       evt.preventDefault();

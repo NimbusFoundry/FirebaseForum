@@ -118,7 +118,7 @@ $(document).ready(()->
 
 		server = Nimbus.Firebase.server
 		Nimbus.Client.Firebase.createUser(data, (res)->
-			if !res.err
+			if !res.error
 				bootbox.alert('Your account has been created, you can sign in now.', ()->
 					Nimbus.Auth.authorize('Firebase', 
 						'email' : data.email
@@ -128,7 +128,7 @@ $(document).ready(()->
 					return
 				)
 			else
-				bootbox.alert('Register Error: '+res.err.code)
+				bootbox.alert('Register Error: '+res.error.code)
 			
 			return 
 		)
