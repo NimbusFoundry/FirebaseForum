@@ -64,7 +64,8 @@ foundry.ready(()->
 		window.history.pushState(state, document.title, state.url);
 
 	if Nimbus.Auth.authorized()
-
+		$('#loading .identity-form').slideUp('fast');
+		$("#login_buttons").addClass("redirect");
 		# add indicator
 		foundry.init(()->
 			# remove indicator
