@@ -2438,3 +2438,6 @@ button.close:focus {
 	bottom: 50px!important;
 	height: 85%!important;
 }
+.modal.fade.in{
+	z-index: 10000;
+}
