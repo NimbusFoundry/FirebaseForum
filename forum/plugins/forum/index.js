@@ -190,7 +190,7 @@
     window.controller = {};
     return foundryModule.controller('ForumController', [
       '$scope', '$rootScope', '$foundry', '$filter', function($scope, $rootScope, $foundry, $filter) {
-        var check_for_forum_init, comment_action, component, componentsMap, current_user, findComponentByTopicModelInstanceInComponents, forum_module, generate_comment_template, generate_file_template, generate_link_template, generate_post_template, initComponentScope, model, name, notify_author, notify_other_user, upload_attachment, _i, _j, _k, _len, _len1, _len2, _ref;
+        var check_for_forum_init, comment_action, component, componentsMap, current_user, findComponentByTopicModelInstanceInComponents, forum_module, generate_comment_template, generate_file_template, generate_link_template, generate_post_template, initComponentScope, localUser, model, name, notify_author, notify_other_user, upload_attachment, _i, _j, _k, _len, _len1, _len2, _ref;
         $rootScope.breadcum = 'Forums';
         $scope.topic_model = foundry._models.Topic;
         $scope.link_model = foundry._models.Link;
@@ -248,7 +248,12 @@
         $scope.new_comment = '';
         $scope.comments = [];
         $scope.current_user = current_user = foundry._current_user;
-        $scope.user_permission = foundry._models.User.findByAttribute('email', current_user.email).role;
+        localUser = foundry._models.User.findByAttribute('email', current_user.email);
+        if (localUser) {
+          $scope.user_permission = foundry._models.User.findByAttribute('email', current_user.email).role;
+        } else {
+          $scope.user_permission = 'Viewer';
+        }
         forum_module = foundry._plugins.forum;
 
         /*
@@ -875,7 +880,7 @@
             case 3:
               email_data.content = generate_file_template(data);
           }
-          return $foundry.gmail(email_data.subject, foundry._current_user.email, email_data.content, foundry._plugins.user.mail_list());
+          return $foundry.email(email_data.subject, foundry._current_user.email, email_data.content, foundry._plugins.user.mail_list());
         };
 
         /*
@@ -889,7 +894,7 @@
             subject: 'Forum Comment',
             content: generate_comment_template(data)
           };
-          return $foundry.gmail(email_data.subject, email, email_data.content);
+          return $foundry.email(email_data.subject, email, email_data.content);
         };
 
         /*
@@ -1141,7 +1146,7 @@
             text: data.content,
             id: $scope.displayed_topic.id
           });
-          return $foundry.gmail(data.subject, foundry._current_user.email, content, foundry._plugins.user.mail_list());
+          return $foundry.email(data.subject, foundry._current_user.email, content, foundry._plugins.user.mail_list());
         };
         $scope.send_email_to = function(email, data) {
           var content;
@@ -1150,7 +1155,7 @@
             text: data.content,
             id: $scope.displayed_topic.id
           });
-          return $foundry.gmail(data.subject, email, content);
+          return $foundry.email(data.subject, email, content);
         };
 
         /*

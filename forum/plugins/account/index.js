@@ -37,9 +37,14 @@
   define_controller = function() {
     return angular.module('foundry').controller('AccountController', [
       '$scope', '$rootScope', '$foundry', '$filter', '$http', function($scope, $rootScope, $foundry, $filter, $http) {
-        var chosenPlan, payment_gate, plan_to_usernumber, request_purchase, stripeHandler, stripePublishable;
+        var chosenPlan, localUser, payment_gate, plan_to_usernumber, request_purchase, stripeHandler, stripePublishable;
         $rootScope.breadcum = 'Account';
-        $scope.current_user_role = foundry._user_list[foundry._current_user.id].role;
+        localUser = foundry._models.User.findByAttribute('email', foundry._current_user.email);
+        if (localUser) {
+          $scope.current_user_role = foundry._models.User.findByAttribute('email', foundry._current_user.email).role;
+        } else {
+          $scope.current_user_role = 'Viewer';
+        }
         chosenPlan = 'fourm_1';
         stripePublishable = 'pk_test_7rdDmdjKakyzgi9ClecAIPTa';
         stripeHandler = StripeCheckout.configure({

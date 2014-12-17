@@ -206,8 +206,11 @@ defineController = (components) ->
     $scope.comments = []
 
     $scope.current_user = current_user = foundry._current_user
-    $scope.user_permission = foundry._models.User.findByAttribute('email',current_user.email).role
-
+    localUser = foundry._models.User.findByAttribute('email',current_user.email)
+    if localUser
+      $scope.user_permission = foundry._models.User.findByAttribute('email',current_user.email).role
+    else 
+      $scope.user_permission = 'Viewer'
     forum_module = foundry._plugins.forum
     ###
       input: none
@@ -889,7 +892,7 @@ defineController = (components) ->
         when 3
           email_data.content = generate_file_template(data)
 
-      $foundry.gmail(email_data.subject, 
+      $foundry.email(email_data.subject, 
                         foundry._current_user.email, 
                         email_data.content,
                         foundry._plugins.user.mail_list())
@@ -904,7 +907,7 @@ defineController = (components) ->
         subject : 'Forum Comment'
         content : generate_comment_template(data)
 
-      $foundry.gmail(email_data.subject, 
+      $foundry.email(email_data.subject, 
                         email, 
                         email_data.content)
 
@@ -1151,7 +1154,7 @@ defineController = (components) ->
         text : data.content
         id : $scope.displayed_topic.id
       })
-      $foundry.gmail(data.subject, foundry._current_user.email, content, foundry._plugins.user.mail_list())
+      $foundry.email(data.subject, foundry._current_user.email, content, foundry._plugins.user.mail_list())
 
     $scope.send_email_to = (email, data)->
       content = generate_post_template({
@@ -1159,7 +1162,7 @@ defineController = (components) ->
         text : data.content
         id : $scope.displayed_topic.id
       })
-      $foundry.gmail(data.subject, email, content)
+      $foundry.email(data.subject, email, content)
 
     ###
       input: component

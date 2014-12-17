@@ -28,7 +28,12 @@ define('account',(require)->
 define_controller = ()->
   angular.module('foundry').controller('AccountController', ['$scope', '$rootScope', '$foundry', '$filter', '$http', ($scope,$rootScope, $foundry, $filter, $http)->
     $rootScope.breadcum = 'Account'
-    $scope.current_user_role = foundry._user_list[foundry._current_user.id].role
+    localUser = foundry._models.User.findByAttribute('email',foundry._current_user.email)
+    if localUser
+      $scope.current_user_role = foundry._models.User.findByAttribute('email',foundry._current_user.email).role
+    else 
+      $scope.current_user_role = 'Viewer'
+
     # stripe setup
     chosenPlan = 'fourm_1'
     stripePublishable = 'pk_test_7rdDmdjKakyzgi9ClecAIPTa'
