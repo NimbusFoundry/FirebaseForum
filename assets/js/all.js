@@ -6352,7 +6352,7 @@
       email = data.email;
       password = data.password;
       ref = server;
-      createUrl = "https://auth.firebase.com/v2/amber-torch-4018/users?email=" + (encodeURIComponent(email)) + "&password=" + password + "&_method=POST&v=js-1.1.2&transport=json&suppress_status_codes=true";
+      createUrl = "https://auth.firebase.com/v2/" + Nimbus.Auth.key + "/users?email=" + (encodeURIComponent(email)) + "&password=" + password + "&_method=POST&v=js-1.1.2&transport=json&suppress_status_codes=true";
       window.$.ajax({
         'url': createUrl,
         success: function(data) {
