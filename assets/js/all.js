@@ -5989,7 +5989,7 @@
   })();
 
   Nimbus.Auth.Firebase = (function() {
-    var authObserved, authOject, currentWorkspace, goOffline, obj, obj_to_array, server;
+    var authObserved, authOject, currentWorkspace, obj, obj_to_array, server, watch_users;
     obj = {};
     authOject = null;
     server = null;
@@ -6023,7 +6023,7 @@
       getCollaborators = function(callback) {
         var login;
         login = server.getAuth();
-        return server.child(currentWorkspace + '/live').once('value', function(users) {
+        return server.child(currentWorkspace + '/live/').once('value', function(users) {
           var data, index, user;
           data = users.val();
           for (index in data) {
@@ -6094,6 +6094,23 @@
     };
 
     /*
+      add watch for user presense
+     */
+    watch_users = function() {
+      var online;
+      server = Nimbus.Firebase.server;
+      online = server.child('.info/connected');
+      return online.on('value', function(snapshot) {
+        var ref;
+        ref = server.child(currentWorkspace + '/live/' + server.getAuth().uid);
+        if (snapshot.val()) {
+          ref.onDisconnect().set(null);
+          return ref.set(server.getAuth());
+        }
+      });
+    };
+
+    /*
       1. bind the workspace for model
       2. set user in new workspace alive
       3. remove the user in the old workspace
@@ -6116,22 +6133,7 @@
       }
       currentWorkspace = id;
       Nimbus.Model.Firebase.set_workspace(id);
-      return server.child(id + '/live').transaction(function(data) {
-        var index, live, user;
-        data = data ? data : [];
-        live = false;
-        for (index in data) {
-          user = data[index];
-          if (user.uid === login.uid) {
-            live = true;
-            break;
-          }
-        }
-        if (!live) {
-          data[login.uid] = login;
-        }
-        return data;
-      });
+      return watch_users();
     };
 
     /*
@@ -6276,28 +6278,6 @@
     };
     obj.auth_callback = function() {
       return console.log('placeholder callback for auth');
-    };
-    goOffline = function() {
-      var login, workspace;
-      login = server.getAuth();
-      workspace = Nimbus.realtime.c_file.id;
-      return server.child(workspace + '/live/' + login.uid).set(null, function(data) {
-        return console.log(data);
-      });
-    };
-
-    /*
-      process offline
-     */
-    window.onbeforeunload = function(evt) {
-      var login;
-      login = server.getAuth();
-      if (login) {
-        goOffline();
-      } else {
-        console.log('do nothing');
-      }
-      return '';
     };
     return obj;
   })();
