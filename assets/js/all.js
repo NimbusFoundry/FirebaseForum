@@ -6296,7 +6296,6 @@
       1. sign out the current user
      */
     obj.logout = function() {
-      goOffline();
       localStorage.clear();
       return server.unauth();
     };
