@@ -60,7 +60,9 @@
           if (callback) {
             callback();
           }
-          angular.element(document).scope().$apply();
+          if (angular.element(document).scope().$$phase !== '$digest' || '$apply') {
+            angular.element(document).scope().$apply();
+          }
           ga('set', 'dimension2', Nimbus.realtime.c_file.title);
           ga('set', 'dimension3', Nimbus.realtime.c_file.owners[0].emailAddress + ':' + Nimbus.realtime.c_file.owners[0].displayName);
           ga('set', 'dimension4', foundry._models.User.all());

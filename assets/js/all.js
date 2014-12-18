@@ -6189,10 +6189,16 @@
           workspaces.push(workspace);
         } else {
           workspaces = obj_to_array(data);
-          workspace = workspaces[0];
-          localStorage['last_opened_workspace'] = workspace.id;
+          if (localStorage['last_opened_workspace']) {
+            if (data[localStorage['last_opened_workspace']]) {
+              Nimbus.realtime.c_file = data[localStorage['last_opened_workspace']];
+            }
+          } else {
+            workspace = workspaces[0];
+            localStorage['last_opened_workspace'] = workspace.id;
+            Nimbus.realtime.c_file = workspace;
+          }
         }
-        Nimbus.realtime.c_file = workspace;
         Nimbus.realtime.app_files = workspaces;
         self.watch_workspace(workspace.id);
         self.bind_workspace(workspace.id);
@@ -6320,26 +6326,30 @@
       1. switch workspace
      */
     client.switch_to_app_file_real = function(id, callback) {
-      var node;
-      node = "workspaces/" + id;
-      return server.child(node).once("value", function(res) {
-        var k, v, _ref;
-        Nimbus.realtime.c_file = res.val();
-        Nimbus.realtime.c_file.id = id;
-        if (Nimbus.dictModel != null) {
-          _ref = Nimbus.dictModel;
-          for (k in _ref) {
-            v = _ref[k];
-            v.records = {};
-            v.cloudcache = {};
-            delete localStorage[v.name];
-          }
+      var file, index, k, v, _ref, _ref1;
+      _ref = Nimbus.realtime.app_files;
+      for (index in _ref) {
+        file = _ref[index];
+        if (file.id === id) {
+          Nimbus.realtime.c_file = file;
+          break;
         }
-        Nimbus.Model.Firebase.set_workspace(id);
-        if (callback) {
-          return callback();
+      }
+      if (Nimbus.dictModel != null) {
+        _ref1 = Nimbus.dictModel;
+        for (k in _ref1) {
+          v = _ref1[k];
+          v.records = {};
+          v.cloudcache = {};
+          delete localStorage[v.name];
         }
-      });
+      }
+      Nimbus.Model.Firebase.set_workspace(id);
+      localStorage.last_opened_workspace = id;
+      if (callback) {
+        callback();
+      }
+      return Nimbus.Auth.app_ready_func();
     };
 
     /*
@@ -6563,8 +6573,10 @@
         'title': title,
         'users': [owner],
         'owners': [owner],
-        'mimeType': 'workspace'
+        'mimeType': 'workspace',
+        'allows': {}
       };
+      workspace.allows[user.uid] = true;
       path = server.child('workspaces').push(workspace);
       id = path.name();
       server.child(id + '/users').transaction(function(data) {

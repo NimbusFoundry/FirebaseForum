@@ -60,7 +60,9 @@ define('workspace', ['require','core/analytic'],(require, analytic)->
 			Nimbus.Share.switch_to_app_file_real(doc.id, ()->
 				# foundry.reinitialize()
 				callback() if callback
-				angular.element(document).scope().$apply()
+
+				if angular.element(document).scope().$$phase isnt '$digest' or '$apply'
+					angular.element(document).scope().$apply()
 
 				# setup analytics parameters
 				ga('set', 'dimension2', Nimbus.realtime.c_file.title);
