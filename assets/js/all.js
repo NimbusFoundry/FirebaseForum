@@ -6145,7 +6145,7 @@
       self = this;
       user = server.getAuth();
       server.child('workspaces').once('value', function(res) {
-        var data, id, item, owner, path, workspace, workspaces;
+        var data, item, owner, path, workspace, workspaces;
         workspace = '';
         workspaces = [];
         data = res.val();
@@ -6154,12 +6154,6 @@
               check if the user
          */
         if (data) {
-          for (id in data) {
-            workspace = data[id];
-            if (!workspace.allows[user.uid]) {
-              delete data[id];
-            }
-          }
           if (!Object.keys(data).length) {
             data = null;
           }
@@ -6191,7 +6185,7 @@
           workspaces = obj_to_array(data);
           if (localStorage['last_opened_workspace']) {
             if (data[localStorage['last_opened_workspace']]) {
-              Nimbus.realtime.c_file = data[localStorage['last_opened_workspace']];
+              workspace = Nimbus.realtime.c_file = data[localStorage['last_opened_workspace']];
             }
           } else {
             workspace = workspaces[0];
@@ -6212,16 +6206,10 @@
           a. monitoring workspace changes and save to app_files
        */
       return server.child('workspaces').on('value', function(res) {
-        var data, id, workspace;
+        var data;
         user = server.getAuth().uid;
         data = res.val();
-        for (id in data) {
-          workspace = data[id];
-          if (!workspace.allows[user]) {
-            delete data[id];
-          }
-        }
-        return Nimbus.realtime.app_files = !Object.keys({}).length ? obj_to_array(data) : [];
+        return Nimbus.realtime.app_files = Object.keys(data).length ? obj_to_array(data) : [];
       });
     };
 
