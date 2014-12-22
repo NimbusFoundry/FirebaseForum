@@ -6256,24 +6256,23 @@
       2. the app ready func should be called before the auth is done?
      */
     obj.initialize_firebase = function() {
-      var self;
+      var auth, init, self;
       server = Nimbus.Firebase.server;
       self = this;
-      if (!authObserved) {
-        server.onAuth(function(authData) {
-          if (authData) {
-            console.log('success', authData);
-            return self.init_workspace(function() {
-              self.auth_callback(authData);
-              Nimbus.Auth.app_ready = true;
-              return Nimbus.Auth.app_ready_func();
-            });
-          } else {
-            console.log('failed');
-            return self.auth_callback(authData);
-          }
+      auth = server.getAuth();
+      init = function(authData) {
+        return self.init_workspace(function() {
+          self.auth_callback(authData);
+          Nimbus.Auth.app_ready = true;
+          return Nimbus.Auth.app_ready_func();
         });
-        authObserved = true;
+      };
+      if (!auth) {
+        server.authAnonymously(function(data) {
+          init(data);
+        });
+      } else {
+        init(auth);
       }
     };
 
@@ -6499,7 +6498,7 @@
       if (user.provider === 'password') {
         email = user.password.email;
       } else if (user.provider === 'anonymous') {
-        email = user.uid + '@anonymous.com';
+        email = 'user@anonymous.com';
       }
       return email;
     };

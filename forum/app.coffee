@@ -23,25 +23,12 @@ define('config', ()->
 foundry.load_plugins()
 
 Nimbus.Auth.setup 
-	'GDrive':
-		'app_id' : '965255374748'
-		'key': '965255374748-s2ln5arng133cj8goqu0s6gvfsp2to99.apps.googleusercontent.com'
-		"scope": "openid https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.modify https://apps-apis.google.com/a/feeds/domain/"
-		# "app_name": "foundry"
 	"app_name": "forum"
 	'synchronous' : false
 	"Firebase": 
 		key: 'foundry-forum',
 		app_name: 'Foundry',
 		anonymous : true
-	'DynamoDB':
-		'Google':
-			'app_id' : '195693500289'
-			'client_id':'195693500289.apps.googleusercontent.com'
-			"scope": "https://www.googleapis.com/auth/plus.login"
- 
-		"app_name":"N05FC192-A6CF-B6BD94C3"
-		"region":"us-west-2"
 
 # callback for loading
 Nimbus.Auth.auth_callback = ()->
@@ -62,16 +49,11 @@ foundry.ready(()->
 			url: location.href.replace(location.search,'')
 			otherkey: {}
 		window.history.pushState(state, document.title, state.url);
-
-	if Nimbus.Auth.authorized()
-		$('#loading .identity-form').slideUp('fast');
-		$("#login_buttons").addClass("redirect");
-		# add indicator
-		foundry.init(()->
-			# remove indicator
-			$('#loading').addClass('loaded')  
-			$("#login_buttons").removeClass("redirect")
-		)
+	
+	foundry.init(()->
+		# checking if it is time to 
+		
+	)
 	return
 )
 
@@ -143,9 +125,10 @@ $(document).ready(()->
 		location.reload()
 	)
 
-	# Nimbus.Auth.authorize('Firebase', {
-	# 	'provider' : 'anonymous'	
-	# });
+	service = Nimbus.Auth.sync_services['Firebase']
+	service['service'] = 'Firebase'
+	Nimbus.Auth.setup(service)
+	Nimbus.Auth.initialize()
 
 	return
 )

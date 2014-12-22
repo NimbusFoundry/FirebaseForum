@@ -26,26 +26,12 @@
   foundry.load_plugins();
 
   Nimbus.Auth.setup({
-    'GDrive': {
-      'app_id': '965255374748',
-      'key': '965255374748-s2ln5arng133cj8goqu0s6gvfsp2to99.apps.googleusercontent.com',
-      "scope": "openid https://www.googleapis.com/auth/drive https://www.googleapis.com/auth/plus.me https://www.googleapis.com/auth/gmail.compose https://www.googleapis.com/auth/gmail.modify https://apps-apis.google.com/a/feeds/domain/"
-    },
     "app_name": "forum",
     'synchronous': false,
     "Firebase": {
       key: 'foundry-forum',
       app_name: 'Foundry',
       anonymous: true
-    },
-    'DynamoDB': {
-      'Google': {
-        'app_id': '195693500289',
-        'client_id': '195693500289.apps.googleusercontent.com',
-        "scope": "https://www.googleapis.com/auth/plus.login"
-      },
-      "app_name": "N05FC192-A6CF-B6BD94C3",
-      "region": "us-west-2"
     }
   });
 
@@ -71,14 +57,7 @@
       };
       window.history.pushState(state, document.title, state.url);
     }
-    if (Nimbus.Auth.authorized()) {
-      $('#loading .identity-form').slideUp('fast');
-      $("#login_buttons").addClass("redirect");
-      foundry.init(function() {
-        $('#loading').addClass('loaded');
-        return $("#login_buttons").removeClass("redirect");
-      });
-    }
+    foundry.init(function() {});
   });
 
   $(document).ready(function() {
@@ -86,6 +65,7 @@
     /*
     	form action
      */
+    var service;
     $('.register-form-toggle').on('click', function(evt) {
       evt.preventDefault();
       $('.l-form-container').animate({
@@ -148,6 +128,10 @@
       foundry.logout();
       return location.reload();
     });
+    service = Nimbus.Auth.sync_services['Firebase'];
+    service['service'] = 'Firebase';
+    Nimbus.Auth.setup(service);
+    Nimbus.Auth.initialize();
   });
 
 }).call(this);
