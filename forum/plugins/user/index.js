@@ -20,6 +20,14 @@
           self._models['user'] = model;
           foundry.initialized('user');
         });
+        angular.element(document).scope().$apply(function(scope) {
+          console.log('apply with global use++++++++++++++++');
+          return scope._current_global_user = {
+            name: foundry._current_user.uid,
+            email: Nimbus.Share.get_user_email(),
+            pic: 'http://www.gravatar.com/avatar/' + md5(Nimbus.Share.get_user_email()) + '?d=mm'
+          };
+        });
       },
       inited: function() {
         var id, self, user, user_model, _ref;

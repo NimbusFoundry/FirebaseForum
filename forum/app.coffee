@@ -49,9 +49,13 @@ foundry.ready(()->
 			otherkey: {}
 		window.history.pushState(state, document.title, state.url);
 	
+	if Nimbus.Auth.authorized()
+		$('#loading .identity-form').slideUp('fast');
+		$("#login_buttons").addClass("redirect");
+
 	foundry.init(()->
 		# checking if it is time to 
-		
+		$('#loading').addClass('loaded');
 	)
 	return
 )

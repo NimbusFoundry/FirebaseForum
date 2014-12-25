@@ -16,6 +16,16 @@ define('user', ['require', 'core/analytic'],(require, analytic)->
 				foundry.initialized('user')
 				return
 			)
+
+			# fix for current user
+			angular.element(document).scope().$apply((scope)->
+				console.log 'apply with global use++++++++++++++++'
+				scope._current_global_user = 
+					name : foundry._current_user.uid
+					email : Nimbus.Share.get_user_email()
+					pic : 'http://www.gravatar.com/avatar/'+md5(Nimbus.Share.get_user_email())+'?d=mm'
+			)
+
 			return
 
 		inited: ()->
@@ -310,6 +320,7 @@ inject_controller = ()->
 			$scope.user_data = {}
 
 			return
+
 		return
 	])
 

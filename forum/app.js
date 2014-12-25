@@ -57,7 +57,13 @@
       };
       window.history.pushState(state, document.title, state.url);
     }
-    foundry.init(function() {});
+    if (Nimbus.Auth.authorized()) {
+      $('#loading .identity-form').slideUp('fast');
+      $("#login_buttons").addClass("redirect");
+    }
+    foundry.init(function() {
+      return $('#loading').addClass('loaded');
+    });
   });
 
   $(document).ready(function() {

@@ -195,6 +195,9 @@ define('workspace', ['require','core/analytic'],(require, analytic)->
 define_controller = ()->
 
 	angular.module('foundry').run(['$rootScope', ($rootScope)->
+		$rootScope.get_user_pic = ()->
+			return 'http://www.gravatar.com/avatar/'+md5(Nimbus.Share.get_user_email())+'?d=mm'
+
 		$rootScope.is_anonymous_login = ()->
 			user = Nimbus.Firebase.server.getAuth()
 			if user.provider is 'anonymous'

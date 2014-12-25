@@ -1227,7 +1227,7 @@
         patch code for firebase
          */
         $scope.is_writable = function() {
-          return $rootScope.is_anonymous_login();
+          return Boolean(foundry._user_list[foundry._current_user.id]);
         };
       }
     ]);

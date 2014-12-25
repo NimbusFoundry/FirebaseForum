@@ -16167,8 +16167,6 @@ for(var p=1;g>p;p++){i=b("sha1",e),i.update(k),k=i.digest();for(var q=0;j>q;q++)
       if (callback) {
         callback(me);
       }
-      $("#user_pic").attr("src", me.pic);
-      return $("#user_pic_large").attr("src", me.pic);
     });
   };
 

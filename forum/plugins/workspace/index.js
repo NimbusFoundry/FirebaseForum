@@ -194,6 +194,9 @@
   define_controller = function() {
     angular.module('foundry').run([
       '$rootScope', function($rootScope) {
+        $rootScope.get_user_pic = function() {
+          return 'http://www.gravatar.com/avatar/' + md5(Nimbus.Share.get_user_email()) + '?d=mm';
+        };
         return $rootScope.is_anonymous_login = function() {
           var user;
           user = Nimbus.Firebase.server.getAuth();

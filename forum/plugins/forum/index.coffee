@@ -1226,7 +1226,7 @@ defineController = (components) ->
     patch code for firebase
     ###
     $scope.is_writable = ()->
-      return $rootScope.is_anonymous_login()
+      return Boolean(foundry._user_list[foundry._current_user.id])
 
     return
     ])
