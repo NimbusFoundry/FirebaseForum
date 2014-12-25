@@ -128,6 +128,11 @@
       foundry.logout();
       return location.reload();
     });
+    $('.login_btn').on('click', function(evt) {
+      $('#loading .identity-form').slideDown('fast');
+      $("#login_buttons").removeClass("redirect");
+      return $('#loading').removeClass('loaded');
+    });
     service = Nimbus.Auth.sync_services['Firebase'];
     service['service'] = 'Firebase';
     Nimbus.Auth.setup(service);

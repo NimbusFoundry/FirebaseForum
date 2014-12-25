@@ -41,7 +41,10 @@
 		<ul class="menu">
 			<li class="brand">
 				<img id="logo" src="forum/plugins/forum/forum_logo.gif" />
-				<a id="user" data-toggle="dropdown"> <img id="user_pic" src="assets/img/photo.jpg" /> <i class="icon-angle-down" style="font-size: 15px;"></i> </a>
+				<a id="user" data-toggle="dropdown">
+					<img id="user_pic" src="assets/img/photo.jpg" /> 
+					<i class="icon-angle-down" style="font-size: 15px;"></i>
+				</a>
 				<ul class="dropdown-menu" style="width: 186px; margin-left: 20px; top: 45px; background-color: #fff;">
 					<li>
 						<div class="identity_div">
@@ -68,7 +71,9 @@
 				</a>
 			</li>
 			<li>
-				<a href="" class="logout_btn" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signout" ></i>Logout</span> </a>
+				<a href="" class="logout_btn" ng-hide="is_anonymous_login()" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signout" ></i>Logout</span> </a>
+
+				<a href="" class="login_btn" ng-show="is_anonymous_login()" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signin" ></i>Sign In</span> </a>
 			</li>
 		</ul>
 		<div class="page-wrap">

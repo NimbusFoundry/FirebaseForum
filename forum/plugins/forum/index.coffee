@@ -1222,5 +1222,11 @@ defineController = (components) ->
     # invoke component's onForumLoaded callback
     component.onForumLoaded.apply({},[$scope.componentScope[component.name], $foundry, $filter]) for component in components
 
+    ###
+    patch code for firebase
+    ###
+    $scope.is_writable = ()->
+      return $rootScope.is_anonymous_login()
+
     return
     ])

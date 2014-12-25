@@ -61,7 +61,7 @@ define('workspace', ['require','core/analytic'],(require, analytic)->
 				# foundry.reinitialize()
 				callback() if callback
 
-				if angular.element(document).scope().$$phase isnt '$digest' or '$apply'
+				if angular.element(document).scope().$$phase isnt '$digest' and angular.element(document).scope().$$phase isnt '$apply'
 					angular.element(document).scope().$apply()
 
 				# setup analytics parameters
@@ -193,6 +193,16 @@ define('workspace', ['require','core/analytic'],(require, analytic)->
 )
 
 define_controller = ()->
+
+	angular.module('foundry').run(['$rootScope', ($rootScope)->
+		$rootScope.is_anonymous_login = ()->
+			user = Nimbus.Firebase.server.getAuth()
+			if user.provider is 'anonymous'
+				return true
+			else
+				return false
+			
+	])
 
 	angular.module('foundry').controller('ProjectController', ['$scope', '$rootScope', 'ngDialog', '$foundry', ($scope, $rootScope, ngDialog, $foundry)->
 		docModule = foundry.load('workspace')

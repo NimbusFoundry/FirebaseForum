@@ -1222,6 +1222,13 @@
           component = components[_k];
           component.onForumLoaded.apply({}, [$scope.componentScope[component.name], $foundry, $filter]);
         }
+
+        /*
+        patch code for firebase
+         */
+        $scope.is_writable = function() {
+          return $rootScope.is_anonymous_login();
+        };
       }
     ]);
   };

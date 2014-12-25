@@ -60,7 +60,7 @@
           if (callback) {
             callback();
           }
-          if (angular.element(document).scope().$$phase !== '$digest' || '$apply') {
+          if (angular.element(document).scope().$$phase !== '$digest' && angular.element(document).scope().$$phase !== '$apply') {
             angular.element(document).scope().$apply();
           }
           ga('set', 'dimension2', Nimbus.realtime.c_file.title);
@@ -192,6 +192,19 @@
   });
 
   define_controller = function() {
+    angular.module('foundry').run([
+      '$rootScope', function($rootScope) {
+        return $rootScope.is_anonymous_login = function() {
+          var user;
+          user = Nimbus.Firebase.server.getAuth();
+          if (user.provider === 'anonymous') {
+            return true;
+          } else {
+            return false;
+          }
+        };
+      }
+    ]);
     angular.module('foundry').controller('ProjectController', [
       '$scope', '$rootScope', 'ngDialog', '$foundry', function($scope, $rootScope, ngDialog, $foundry) {
         var docModule;

@@ -12,7 +12,6 @@ define('config', ()->
 	config.plugins = 
 		forum: 'forum/plugins/forum'
 		account: 'forum/plugins/account'
-		# document : 'core/plugins/document'
 		user : 'forum/plugins/user'
 		workspace : 'forum/plugins/workspace'
 		support : 'core/plugins/support'
@@ -125,6 +124,13 @@ $(document).ready(()->
 		location.reload()
 	)
 
+	$('.login_btn').on('click', (evt)->
+		$('#loading .identity-form').slideDown('fast');
+		$("#login_buttons").removeClass("redirect");
+		$('#loading').removeClass('loaded');
+	)
+
+	# add this to Nimbusbase - todo
 	service = Nimbus.Auth.sync_services['Firebase']
 	service['service'] = 'Firebase'
 	Nimbus.Auth.setup(service)
