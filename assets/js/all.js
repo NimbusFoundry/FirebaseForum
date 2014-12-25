@@ -6119,7 +6119,7 @@
       var login;
       login = server.getAuth();
       if (id !== currentWorkspace && currentWorkspace) {
-        server.child(currentWorkspace + '/live').transctions(function(data) {
+        server.child(currentWorkspace + '/live').transaction(function(data) {
           var index, user;
           for (index in data) {
             user = data[index];
