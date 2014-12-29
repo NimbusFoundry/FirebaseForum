@@ -6,37 +6,8 @@
 
 		<link href="http://static.nimbusfoundry.com/css/default.min.css" rel="stylesheet" />
 		<link href="assets/css/styles.css" rel="stylesheet" />
-
 	</head>
 	<body ng-cloak>
-		<div id="loading" class="loaded" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f4f6f8; z-index: 10000; display: block; background-position: center; background-size: cover;">
-			<div id="login_buttons">
-				<img id="logo_loading" src="forum/plugins/forum/forum_logo.gif" style="padding: 5px; height: 60px;"/>
-				
-				<h1>Login to your Forum</h1>
-				
-				<p class="simple_spinner">
-					<span class="spinner_div" style="display: inline-block"></span><span class="s_text">Logging In</span>
-				</p>
-				
-				<div class="identity-form container-fluid" style="margin-top:20px;height: 126px;overflow: hidden;">
-					<div class="row-fluid l-form-container" style="position: relative;">
-						<form action="" class="login l-form-content">
-							<input type="text" name="email" placeholder="email" style="padding: 7px;">
-							<input type="password" name="passwd" placeholder="password" style="padding: 7px;">
-							<button type="submit" id="firebase_login_btn" class="btn btn-success">Sign In</button>
-							<a href="#" data-target="register" class="register-form-toggle">Register an account?</a>
-						</form>
-						<form action="" class="register l-form-content" style="margin-top:20px;">
-							<input type="text" name="register" placeholder="email" style="padding: 7px;">
-							<input type="password" name="password" placeholder="password" style="padding: 7px;">
-							<button type="submit" id="firebase_register_btn" class="btn btn-primary">Sign Up</button>
-							<a href="#" data-target="login" class="login-form-toggle">Sign in</a>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
 		<!-- /.navbar -->
 		<ul class="menu">
 			<li class="brand">
@@ -76,16 +47,13 @@
 				<a href="" class="login_btn" ng-show="is_anonymous_login()" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signin" ></i>Sign In</span> </a>
 			</li>
 		</ul>
-		<div class="page-wrap">
-			<ng-view ng-cloak></ng-view>
+		<div class="page-wrap" ui-view ng-cloak>
+
 		</div>
 		<!-- <script src="http://static.nimbusfoundry.com/main.min.js"></script> -->
-		<script src="https://checkout.stripe.com/checkout.js"></script>
 		<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
 
-		<script src="assets/js/md5.min.js"></script>
-		<script src="assets/js/all.js"></script>
-		<script src="assets/js/foundry.js"></script>
+		<script src="assets/js/md5.min.js"></script> 
 		<script src="forum/app.js"></script>
 		
 	</body>
