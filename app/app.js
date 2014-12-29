@@ -26,6 +26,10 @@ angular.module('Fireforum', ['ngRoute', 'ui.router'])
 	.state('forum', {
 		url: "/forum",
 		templateUrl: "templates/forum/index.html"
+	})
+	.state('message', {
+		url: "/message",
+		templateUrl: "templates/messages/index.html"
 	});
 
 });

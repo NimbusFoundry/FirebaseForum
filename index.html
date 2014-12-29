@@ -32,17 +32,36 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#/users">
+				<a href="#/forum">
 					<span >
-						Users<i class="icon icon-users"></i>
+						Forum<i class="icon icon-comment"></i>
 					</span>
 				</a>
 			</li>
 			<li>
-				<a href="" class="logout_btn" ng-hide="is_anonymous_login()" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signout" ></i>Logout</span> </a>
-
-				<a href="" class="login_btn" ng-show="is_anonymous_login()" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signin" ></i>Sign In</span> </a>
+				<a href="#/users">
+					<span >
+						Users<i class="icon icon-user"></i>
+					</span>
+				</a>
 			</li>
+			<li>
+				<a href="#/todos">
+					<span >
+						Todos<i class="icon icon-list"></i>
+					</span>
+				</a>
+			</li>
+			<!-- <li>
+				<a href="#/messages">
+					<span >
+						Messages<i class="icon icon-envelope"></i>
+					</span>
+				</a>
+			</li> -->
+			<!-- <li>
+				<a href="" class="logout_btn" ng-hide="is_anonymous_login()" style="position: fixed; bottom: 0px;"> <span style="background-color: #343434; border-top: 2px solid #484848; font-size: 1.2em;"><i class="icon-signout" ></i>Logout</span> </a>
+			</li> -->
 		</ul>
 		<div class="page-wrap" ui-view ng-cloak>
 
@@ -57,5 +76,6 @@
 		<script src="vendor/angularfire/dist/angularfire.min.js"></script>
 		<script src="assets/js/md5.min.js"></script> 
 		<script src="app/app.js"></script>
+		<script src="app/controllers/controller.js"></script>
 	</body>
 </html>
