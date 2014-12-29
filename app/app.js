@@ -23,6 +23,11 @@ angular.module('Fireforum', ['ngRoute', 'ui.router'])
 		url: "/forum",
 		templateUrl: "templates/forum/index.html"
 	})
+	.state('forum.create', {
+		'url' : '/create/:type',
+		'templateUrl' : 'templates/forum/create.html',
+		'controller' : 'ForumCreateCtrl'
+	})
 	.state('message', {
 		url: "/message",
 		templateUrl: "templates/messages/index.html"
