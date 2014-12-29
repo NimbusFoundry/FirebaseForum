@@ -2439,3 +2439,10 @@ button.close:focus {
 .modal.fade.in{
 	z-index: 10000;
 }
+.nimbus_form_modal .nimb_form{
+	border-bottom: none;
+}
+.nimbus_form_modal .nimb_form input{
+	float: none!important;
+	padding: 1.5em!important;
+}

@@ -3,20 +3,36 @@
 		<h1 style="font-weight:300">Create Post</h1>
 	</div>
 	<div ng-if="type == 'link'">
-		
+		<div class="nimbus_form_modal">
+			<form class="ng-scope ng-pristine ng-valid">
+				<div class="nimb_form">
+					<label for="topic_data.name">Name</label>
+					<input type="text" id="topic_data.name" ng-model="topic_data.name" class="ng-pristine ng-valid">
+				</div>
+				<div class="nimb_form">
+					<label for="topic_data.text">Url</label>
+					<input type="text" id="topic_data.name" ng-model="topic_data.url" class="ng-pristine ng-valid">
+				</div>
+				<div class="nimb_form">
+					<button class="btn btn-primary create_button" ng-click="submit()">Create</button>
+				</div>
+			</form>
+		</div>
 	</div>
 	<div ng-if="type == 'post'">
 		<div class="nimbus_form_modal">
 			<form class="ng-scope ng-pristine ng-valid">
-				<div class="nimb_form input">
+				<div class="nimb_form">
 					<label for="topic_data.name">Name</label>
 					<input type="text" id="topic_data.name" ng-model="topic_data.name" class="ng-pristine ng-valid">
 				</div>
-				<div class="nimb_form editor" ng-hide="topic_data.rss">
+				<div class="nimb_form">
 					<label for="topic_data.text">Content</label>
 					<textarea en-editor="" ng-model="topic_data.text" class="ng-pristine ng-valid ng-binding"></textarea>
 				</div>
-				<button class="btn btn-primary create_button" ng-click="submit()">Create</button>
+				<div class="nimb_form">
+					<button class="btn btn-primary create_button" ng-click="submit()">Create</button>
+				</div>
 			</form>
 		</div>
 	</div>
