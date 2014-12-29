@@ -4,17 +4,17 @@
 		<meta charset="UTF-8">
 		<title>Forum - Communication for teams</title>
 
-		<link href="http://static.nimbusfoundry.com/css/default.min.css" rel="stylesheet" />
+		<link href="assets/css/default.min.css" rel="stylesheet" />
 		<link href="assets/css/styles.css" rel="stylesheet" />
 	</head>
 	<body ng-cloak>
 		<!-- /.navbar -->
 		<ul class="menu">
 			<li class="brand">
-				<img id="logo" src="forum/plugins/forum/forum_logo.gif" />
+				<img id="logo" src="assets/img/forum_avatar.jpg" />
 				<a id="user" data-toggle="dropdown">
 					<img id="user_pic" ng-src="{{get_user_pic()}}" /> 
-					<i class="icon-angle-down" style="font-size: 15px;"></i>
+					<i class="icon icon-angle-down" style="font-size: 15px;"></i>
 				</a>
 				<ul class="dropdown-menu" style="width: 186px; margin-left: 20px; top: 45px; background-color: #fff;">
 					<li>
@@ -31,13 +31,10 @@
 					</li>
 				</ul>
 			</li>
-			<li ng-hide="_plugin.hide_plugin" ng-repeat="(name, _plugin) in _plugins | orderBy:'order':true" ng-class="{active:'#'+_active_app_path=='#/'+name}">
-				<a href="#/{{name}}">
-					<span ng-if="_plugin.title">
-						{{_plugin.title}}<i class="{{_plugin.icon}}" ></i>
-					</span>
-					<span ng-if="!_plugin.title" >
-						{{name|uppercase}}<i class="{{_plugin.icon}}" ></i>
+			<li>
+				<a href="#/users">
+					<span >
+						Users<i class="icon icon-users"></i>
 					</span>
 				</a>
 			</li>
@@ -50,7 +47,7 @@
 		<div class="page-wrap" ui-view ng-cloak>
 
 		</div>
-		
+
 		<script src="vendor/jquery/dist/jquery.min.js"></script>
 		<script src="vendor/angular/angular.min.js"></script>
 		<script src="vendor/angular-route/angular-route.min.js"></script>
@@ -59,6 +56,6 @@
 		<script src="https://cdn.firebase.com/js/client/1.1.2/firebase.js"></script>
 		<script src="vendor/angularfire/dist/angularfire.min.js"></script>
 		<script src="assets/js/md5.min.js"></script> 
-		<script src="forum/app.js"></script>
+		<script src="app/app.js"></script>
 	</body>
 </html>
