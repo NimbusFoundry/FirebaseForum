@@ -24,13 +24,15 @@
 		    </div>
 		</div>
 
-		<div class="topic_listing" ng-repeat="topic in topics" ng-click="change_display(feed,$index)" ng-class="{current_topic: $index==current_index}" style="position: relative;">
+		<div class="topic_listing" ng-repeat="(id, topic) in topics" ng-click="change_display(topic, id)" ng-class="{current_topic: $index==current_index}" style="position: relative;cursor:pointer;">
 			<i class="icon icon-bookmark" ng-show="topic.pinned" style="position:absolute;left: 0px;top:0px;color: #1fa086;"></i>
 			<img class="pic" ng-src='{{get_user_pic(topic.userid)}}' />
 			<div class="middle">
-				<!-- <a href="{{ topic.link }}" target="_blank">--><span class="name">{{ topic.name }}</span><span class="timesago">{{ get_time_from_now(topic.created_at) }}</span>
+				<span class="name">{{ topic.title }}</span>
+				<span class="timesago">{{ get_time_from_now(topic.created_at) }}</span>
 				<br />
-				<span class="detail">By {{ get_user_name(topic.userid) }}</span><span class="commenters">{{ get_topic_comment_count(topic) || ''}}</span>
+				<span class="detail">By {{ get_user_name(topic.userId) }}</span>
+				<span class="commenters">{{ get_topic_comment_count(topic) || ''}}</span>
 			</div>
 		</div>
 		<div class="topic_listing" style="text-align: center;" ng-hide="!is_there_more_posts()">

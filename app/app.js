@@ -3,7 +3,7 @@
 *
 * Description
 */
-angular.module('Fireforum', ['ngRoute', 'ui.router'])
+angular.module('Fireforum', ['ngRoute', 'ui.router', 'firebase'])
 .run(['$rootScope', function($rootScope){
 
 }])
@@ -27,6 +27,11 @@ angular.module('Fireforum', ['ngRoute', 'ui.router'])
 		'url' : '/create/:type',
 		'templateUrl' : 'templates/forum/create.html',
 		'controller' : 'ForumCreateCtrl'
+	})
+	.state('forum.show', {
+		'url' : '/create/:id',
+		'templateUrl' : 'templates/forum/article.html',
+		'controller' : 'ForumShowCtrl'
 	})
 	.state('message', {
 		url: "/message",

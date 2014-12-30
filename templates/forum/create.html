@@ -1,6 +1,6 @@
 <div id="topic_view">
 	<div class="breadcrumb">
-		<h1 style="font-weight:300">Create Post</h1>
+		<h1 style="font-weight:300">Compose</h1>
 	</div>
 	<div ng-if="type == 'link'">
 		<div class="nimbus_form_modal">
@@ -10,11 +10,11 @@
 					<input type="text" id="topic_data.name" ng-model="topic_data.name" class="ng-pristine ng-valid">
 				</div>
 				<div class="nimb_form">
-					<label for="topic_data.text">Url</label>
-					<input type="text" id="topic_data.name" ng-model="topic_data.url" class="ng-pristine ng-valid">
+					<label for="topic_data.url">Url</label>
+					<input type="text" id="topic_data.url" ng-model="topic_data.url" class="ng-pristine ng-valid">
 				</div>
 				<div class="nimb_form">
-					<button class="btn btn-primary create_button" ng-click="submit()">Create</button>
+					<button class="btn btn-primary create_button" ng-click="create_link()">Create</button>
 				</div>
 			</form>
 		</div>
@@ -31,7 +31,7 @@
 					<textarea en-editor="" ng-model="topic_data.text" class="ng-pristine ng-valid ng-binding"></textarea>
 				</div>
 				<div class="nimb_form">
-					<button class="btn btn-primary create_button" ng-click="submit()">Create</button>
+					<button class="btn btn-primary create_button" ng-click="create_post()">Create</button>
 				</div>
 			</form>
 		</div>

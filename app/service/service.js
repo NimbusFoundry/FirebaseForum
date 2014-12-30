@@ -1,7 +1,9 @@
-angular.service('$forum', ['$rootScope', '$firebase', '$firebaseAuth', function($rootScope, $firebase, $firebaseAuth){
+angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$firebaseAuth', function($rootScope, $firebase, $firebaseAuth){
 	var _ref = new Firebase("https://foundry-test.firebaseio.com"),
 		_sync = $firebase(_ref),
 		_auth = $firebaseAuth(_ref);
+
+	var topicNode = 'topics';
 
 	this.auth = function(data){
 		_sync.$authWithPassword({
@@ -14,7 +16,13 @@ angular.service('$forum', ['$rootScope', '$firebase', '$firebaseAuth', function(
 		});
 	};
 
-	this.get_posts = funciton(){
-
+	this.create_link = function(data){
+		sync = $firebase(_ref.child(topicNode));
+		return sync.$push(data);
 	};
+
+	this.get_posts = function(){
+		sync = $firebase(_ref.child(topicNode));
+		return sync.$asObject();
+	}
 }])
