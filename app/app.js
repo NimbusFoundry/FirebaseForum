@@ -29,7 +29,7 @@ angular.module('Fireforum', ['ngRoute', 'ui.router', 'firebase'])
 		'controller' : 'ForumCreateCtrl'
 	})
 	.state('forum.show', {
-		'url' : '/create/:id',
+		'url' : '/show/:id',
 		'templateUrl' : 'templates/forum/article.html',
 		'controller' : 'ForumShowCtrl'
 	})

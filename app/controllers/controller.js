@@ -47,8 +47,12 @@ angular
 	};
 }])
 .controller('ForumShowCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
-	var topicId = $stateParams.id,
-		topic = $forum.get_post(topicId);
+	var topicId = $stateParams.id;
+		
+	$scope.displayed_topic = $forum.get_post(topicId);
+	$scope.showing = true;
+
+	console.log($scope.displayed_topic);
 
 	$scope.add_comment = function(){
 

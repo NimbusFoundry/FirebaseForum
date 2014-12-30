@@ -17,12 +17,17 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 	};
 
 	this.create_link = function(data){
-		sync = $firebase(_ref.child(topicNode));
+		var sync = $firebase(_ref.child(topicNode));
 		return sync.$push(data);
 	};
 
 	this.get_posts = function(){
-		sync = $firebase(_ref.child(topicNode));
+		var sync = $firebase(_ref.child(topicNode));
+		return sync.$asObject();
+	}
+
+	this.get_post = function(id){
+		var sync = $firebase(_ref.child(topicNode+'/'+id));
 		return sync.$asObject();
 	}
 }])
