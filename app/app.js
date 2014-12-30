@@ -8,9 +8,13 @@ angular.module('Fireforum', ['ngRoute', 'ui.router', 'firebase'])
 
 }])
 .config(function($stateProvider, $urlRouterProvider) {
-	$urlRouterProvider.otherwise("/forum");
+	$urlRouterProvider.otherwise("/");
 	// Now set up the states
 	$stateProvider
+	.state('home', {
+		url : '/',
+		templateUrl : 'templates/index.html'
+	})
 	.state('users', {
 		url: "/users",
 		templateUrl: "templates/users/index.html"

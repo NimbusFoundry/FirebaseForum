@@ -64,5 +64,14 @@ angular
 }])
 .controller('TodoCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
 
-}]);;
+}])
+.controller('HomeCtrl', ['$scope', function($scope){
+	/**
+	 * main code for login and register
+	 */
+	
+	var loginStatus = false;
+
+	
+}]);
 
