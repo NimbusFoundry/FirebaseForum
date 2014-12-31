@@ -1,7 +1,8 @@
 angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$firebaseAuth', '$q', function($rootScope, $firebase, $firebaseAuth, $q){
 	var _ref = new Firebase("https://foundry-test.firebaseio.com"),
 		_sync = $firebase(_ref),
-		_auth = $firebaseAuth(_ref);
+		_auth = $firebaseAuth(_ref),
+		_users = {};
 
 	var topicNode = 'topics',
 		userNode = 'users';
@@ -52,15 +53,21 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 		return sync.$asObject();
 	}
 
+	/**
+	 * user related methods
+	 */
+	this.get_users = function(){
+		sync = $firebase(_ref.child(userNode)).$asObject();
+		return sync;
+	}
 
 	function save_user(data, authData){
 		var gravatarHost = '',
-			node = $firebase(_ref.child(userNode)).$asObject();
+			node = $firebase(_ref.child(userNode+'/'+data.email.replace('.', ','))).$asObject();
 
-		node[data.email.replace('.', ',')] = {
-			'uid' : authData.uid,
-			'pic' : 'http://www.gravatar.com/avatar/'+md5(gravatarHost + data.email)
-		};
+		node.uid = authData.uid,
+		node.pic = 'http://www.gravatar.com/avatar/'+md5(gravatarHost + data.email)+'?d=mm',
+		node.created = moment().format('x')
 
 		return node.$save();
 	};

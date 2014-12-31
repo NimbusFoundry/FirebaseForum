@@ -59,7 +59,11 @@ angular
 	}
 
 }])
+.controller('ForumEditCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
+
+}])
 .controller('UserCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
+	$scope.users = $forum.get_users();
 
 }])
 .controller('TodoCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
@@ -103,7 +107,7 @@ angular
 
 	$scope.logout = function(){
 		$forum.unauth();
-
+		$scope.auth = null;
 		return false;
 	}
 
