@@ -65,13 +65,47 @@ angular
 .controller('TodoCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
 
 }])
-.controller('HomeCtrl', ['$scope', function($scope){
+.controller('HomeCtrl', ['$scope', '$forum', function($scope, $forum){
 	/**
 	 * main code for login and register
 	 */
 	
-	var loginStatus = false;
+	$scope.auth = $forum.getAuth();
 
-	
+	$scope.register = {}
+	$scope.login = {}
+
+	/**
+	 * [register_user description]
+	 * register user and save to users node
+	 * will add animation - @todo 
+	 */
+	$scope.register_user = function(){
+		$forum.register_user($scope.register).then(function(authData){
+			console.log('auth: ', authData);
+			$scope.auth = $forum.getAuth();
+		})
+		.catch(function(){
+			console.log('error')
+		});
+		return false;
+	};
+
+	$scope.login = function(){
+		$forum.auth($scope.login).then(function(authData){
+			if (authData) {
+				$scope.auth = authData;
+			};
+		});
+
+		return false;
+	}
+
+	$scope.logout = function(){
+		$forum.unauth();
+
+		return false;
+	}
+
 }]);
 

@@ -2445,6 +2445,7 @@ button.close:focus {
 
 
 .login-box{
+  font-family:Arial;
   position:relative;
   margin: 10px auto;
   height: 350px;
@@ -2507,7 +2508,7 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
   border-radius: 2px;
   color: #333;
   font-size:0.8rem;
-  text-transform: uppercase;
+  font-family:Arial;
   -webkit-transition:all 0.1s linear;
   -moz-transition:all 0.1s linear;
   transition:all 0.1s linear;
@@ -2524,7 +2525,6 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
   font-weight: normal;
   padding: 14px 0;
   border-radius: 2px;
-  text-transform: uppercase;
 }
 .forgot-password{
   width:50%;
