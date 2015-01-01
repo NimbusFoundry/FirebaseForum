@@ -67,7 +67,28 @@ angular
 
 }])
 .controller('TodoCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
+	$scope.listName = '';
+	$scope.todolists = {}
 
+	$scope.create_list = function(){
+		console.log('creating list: ', $scope.listName);
+		$forum.create_list($scope.listName)
+		.then(function(data){
+			console.log(data);
+			$scope.get_todolist();
+		});
+		$scope.listName = '';
+	}
+
+	$scope.get_todolist = function(){
+		$scope.todolists = $forum.get_todolist()
+	}
+
+	$scope.get_todos = function(list){
+
+	}
+
+	$scope.get_todolist();
 }])
 .controller('HomeCtrl', ['$scope', '$forum', function($scope, $forum){
 	/**

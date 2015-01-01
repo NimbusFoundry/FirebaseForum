@@ -5,7 +5,8 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 		_users = {};
 
 	var topicNode = 'topics',
-		userNode = 'users';
+		userNode = 'users',
+		todoNode = 'todos';
 
 	/**
 	 * methods for authentication
@@ -49,8 +50,8 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 	 * @return {promise}    
 	 */
 	this.get_post = function(id){
-		var sync = $firebase(_ref.child(topicNode+'/'+id));
-		return sync.$asObject();
+		var sync = $firebase(_ref.child(topicNode+'/'+id)).$asObject();
+		return sync;
 	}
 
 	/**
@@ -98,5 +99,35 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 		});
 		return defer.promise;
 	};
+
+	/**
+	 * todo page section
+	 */
+	this.create_list = function(name){
+		var auth = _auth.$getAuth(),
+			email = '',
+			node = null;
+		if (auth) {
+			email = auth.password.email;
+		};
+		node = $firebase(_ref.child(todoNode+'/'+email.replace('.', ',')+'/'+name))
+
+		return node.$set({
+			'count' : 1
+		});
+	}
+
+	this.get_todolist = function(){
+		var auth = _auth.$getAuth(),
+			email = '',
+			node = null;
+
+		if (auth) {
+			email = auth.password.email;
+			node = $firebase(_ref.child(todoNode+'/'+email.replace('.', ','))).$asObject();
+			return node;
+		}
+
+	}
 
 }])

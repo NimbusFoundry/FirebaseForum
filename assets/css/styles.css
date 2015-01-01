@@ -2544,6 +2544,13 @@ todo page
 .todo_column{
 	width: 30%;
 	padding: 5px;
+	height: 100%;
+	float: none;
+	position: absolute;
+	padding: 0px;
+	border-left: 1px solid #eee;
+	background-color: #fafafa;
+	overflow-y: scroll;
 }
 .dash-column-left .breadcrumb{
 	box-shadow: none;
