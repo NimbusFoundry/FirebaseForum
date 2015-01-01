@@ -19,11 +19,10 @@
 			<button class="btn btn-success" style="position:absolute; right:10px" ng-click="create_list()">Add</button>
 		</div>
 
-		<div class="topic_listing" ng-repeat="(name, list) in todolists" ng-click="change_display(list, name)" ng-class="{current_list: $index==current_index}" style="position: relative;cursor:pointer;">
+		<div class="todo_listing" ng-repeat="(id, list) in todolists" ng-click="show_list(id)" ng-class="{active: id==current_list}" style="position: relative;cursor:pointer;">
 			<i class="icon icon-bookmark" ng-show="list.pinned" style="position:absolute;left: 0px;top:0px;color: #1fa086;"></i>
-			<img class="pic" ng-src='{{get_user_pic(list.userid)}}' />
 			<div class="middle">
-				<span class="name">{{ name }}</span>
+				<span class="name">{{ list.name }}</span>
 				<span class="timesago">{{ get_time_from_now(list.created_at) }}</span>
 				<br />
 				<span class="commenters">{{ get_list_comment_count(list) || ''}}</span>
@@ -39,7 +38,19 @@
 
 			<div class="todo-list">
 				<div class="container-fluid">
-					<input type="text" placeholder="Add Todo">
+					<form ng-submit="add_todo()">
+						<input type="text" placeholder="Add Todo" ng-model="newTodo">
+						<input type="submit" style="visibility: hidden; position:absolute;">
+					</form>
+				</div>
+				<div class="container fluid">
+					<ul>
+						<li class="list" ng-repeat="(id, todo) in todos">
+							<input type="checkbox" >
+							<span ng-bind="todo.title"></span>
+							<a href="" ng-click="remove_todo(id)"><i class="icon icon-remove"></i></a>
+						</li>
+					</ul>
 				</div>
 			</div>
 			<div class="todo-detail">

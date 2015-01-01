@@ -68,7 +68,10 @@ angular
 }])
 .controller('TodoCtrl', ['$scope', '$stateParams', '$forum', function($scope, $stateParams, $forum){
 	$scope.listName = '';
-	$scope.todolists = {}
+	$scope.todolists = {};
+	$scope.current_list = null;
+	$scope.newTodo = '';
+	$scope.todos = [];
 
 	$scope.create_list = function(){
 		console.log('creating list: ', $scope.listName);
@@ -80,12 +83,26 @@ angular
 		$scope.listName = '';
 	}
 
+	$scope.show_list = function(id){
+		$scope.current_list = id;
+		$scope.get_todos(id);
+	}
+
 	$scope.get_todolist = function(){
 		$scope.todolists = $forum.get_todolist()
 	}
 
 	$scope.get_todos = function(list){
+		$scope.todos = $forum.get_todos(list);
+	}
 
+	$scope.add_todo = function(){
+		$forum.add_todo($scope.current_list, $scope.newTodo);
+		$scope.newTodo = '';
+	}
+
+	$scope.remove_todo = function(id){
+		$forum.remove_todo($scope.current_list, id);
 	}
 
 	$scope.get_todolist();

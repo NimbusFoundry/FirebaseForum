@@ -2561,3 +2561,18 @@ todo page
 	margin-right: 20px;
 	border-sizing :  border-box;
 }
+
+.todo_listing{
+	padding: 15px 20px 15px 30px;
+	background-color: #fff;
+
+	border-bottom: 1px solid #eee;
+	box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1) !important;
+}
+
+.todo_listing .middle{
+	font-weight: bold;
+}
+.todo_listing.active{
+	background-color: #f4f4f4;
+}

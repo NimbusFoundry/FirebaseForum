@@ -110,10 +110,11 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 		if (auth) {
 			email = auth.password.email;
 		};
-		node = $firebase(_ref.child(todoNode+'/'+email.replace('.', ',')+'/'+name))
-
-		return node.$set({
-			'count' : 1
+		node = $firebase(_ref.child(todoNode+'/'+email.replace('.', ',')))
+		return node.$push({
+			'name' : name,
+			'count' : 0,
+			'created' : moment().format('x')
 		});
 	}
 
@@ -127,7 +128,53 @@ angular.module('Fireforum').service('$forum', ['$rootScope', '$firebase', '$fire
 			node = $firebase(_ref.child(todoNode+'/'+email.replace('.', ','))).$asObject();
 			return node;
 		}
+	}
 
+	this.get_todos = function(list){
+		var auth = _auth.$getAuth(),
+			email = '',
+			node = null,
+			path = '';
+
+		if (auth) {
+			email = auth.password.email;
+			path = _ref.child(todoNode+'/'+email.replace('.', ',')+'/'+list+'/todos');
+			return $firebase(path).$asObject();
+		}
+	}
+
+	this.add_todo = function(list, todo){
+		var auth = _auth.$getAuth(),
+			email = '',
+			node = null,
+			path = '';
+
+		if (auth) {
+			email = auth.password.email;
+			path = _ref.child(todoNode+'/'+email.replace('.', ',')+'/'+list+'/todos');
+
+			node = $firebase(path);
+			return node.$push({
+				'owner' : auth.uid,
+				'created' : moment().format('x'),
+				'title' : todo
+			});
+		}
+	}
+
+	this.remove_todo = function(list, id){
+		var auth = _auth.$getAuth(),
+			email = '',
+			node = null,
+			path = '';
+
+		if (auth) {
+			email = auth.password.email;
+			path = _ref.child(todoNode+'/'+email.replace('.', ',')+'/'+list+'/todos/'+ id);
+
+			node = $firebase(path);
+			return node.$remove();
+		}
 	}
 
 }])
