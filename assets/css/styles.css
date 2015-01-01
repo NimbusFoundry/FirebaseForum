@@ -63,6 +63,10 @@ h6 { font-weight: 300; }
 
 .black { background: #575757; }
 
+::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0px;
+}
 
 /*========= End of Colors  ==========*/
 
@@ -2532,4 +2536,21 @@ box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.33);
   text-decoration: underline;
   color: #888;
   font-size: 0.75rem;
+}
+
+/*
+todo page
+ */
+.todo_column{
+	width: 30%;
+	padding: 5px;
+}
+.dash-column-left .breadcrumb{
+	box-shadow: none;
+}
+
+.todo_column form{
+	display: inline-block;
+	margin-right: 20px;
+	border-sizing :  border-box;
 }

@@ -4,7 +4,7 @@
 */
 
 
-#topic_column {
+#topic_column, .topic_column {
 	height: 100%;
 	float: none;
 	position: absolute;
@@ -15,9 +15,9 @@
 }
 
 .dash-column-left .breadcrumb {
-	border-bottom: 1px solid #eee;
+	/*border-bottom: 1px solid #eee;*/
 	margin-bottom: 0px;
-	box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1) !important;
+	/*box-shadow: 0 1px 1px -1px rgba(0,0,0,0.1) !important;*/
 	margin-bottom: 1px;
 }
 

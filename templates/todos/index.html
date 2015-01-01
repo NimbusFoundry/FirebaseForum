@@ -1,5 +1,30 @@
+<link href="assets/css/forum.css" rel="stylesheet" />
+<link href="assets/css/teststyle.css" rel="stylesheet" />
+
 <div ng-controller="TodoCtrl">
-	<div class="breadcrumb">
+	<div class="breadcrumb" style="margin-bottom:0px;border-bottom:1px solid #f4f6f8;">
 		<h1>Todos</h1>
 	</div> 
+	<div class="dash-column-left todo_column">
+		<div class="breadcrumb" style="position: relative;">
+			<form ng-submit="searchLoad()">
+				<input ng-model="keyword" type="text" class="search" ng-init="searchPlaceHolder='Create Todolist'" placeholder="{{searchPlaceHolder}}" ng-focus="searchPlaceHolder='Type and press return'" ng-blur="searchPlaceHolder='Create Todolist'" style="width:100%">
+				<input type="submit" style="visibility: hidden; position:absolute;">
+			</form>
+			<button class="btn btn-success" style="position:absolute; right:10px">Add</button>
+		</div>
+
+		<div class="topic_listing" ng-repeat="(id, topic) in topics" ng-click="change_display(topic, id)" ng-class="{current_topic: $index==current_index}" style="position: relative;cursor:pointer;">
+			<i class="icon icon-bookmark" ng-show="topic.pinned" style="position:absolute;left: 0px;top:0px;color: #1fa086;"></i>
+			<img class="pic" ng-src='{{get_user_pic(topic.userid)}}' />
+			<div class="middle">
+				<span class="name">{{ topic.title }}</span>
+				<span class="timesago">{{ get_time_from_now(topic.created_at) }}</span>
+				<br />
+				<span class="detail">By {{ get_user_name(topic.userId) }}</span>
+				<span class="commenters">{{ get_topic_comment_count(topic) || ''}}</span>
+			</div>
+		</div>
+	</div>
+
 </div>
