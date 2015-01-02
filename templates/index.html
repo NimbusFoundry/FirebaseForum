@@ -8,9 +8,24 @@
 			{{auth.uid}}
 		</div>
 	</div>
-	<div class="container-fluid">
-		<div class="identity-form row-fluid" id="topic_view" style="padding-top:20px;" ng-if="!auth">
-			<div class="span6" style="padding: 20px 50px;">
+	<div class="container-fluid home-page">
+		<div>
+			<div class="main-form">
+			  <i class="logo"></i>
+			  <input type="email" placeholder="Email" ng-model="login.email" value="">
+			  <input type="password" placeholder="Password" ng-model="login.password" value="">
+			   <label></label>
+			  <input type="submit" value="Sign in" ng-click="login()">
+			  <a href="#" title="">Forgot your password?</a>
+			  <div>
+			    <a href="#" title="">Don't have an account?</a>
+			    <a href="#" title="">Sign Up</a>
+			  </div>
+			</div>
+		</div>
+		<div class="identity-form row-fluid" id="topic_view" style="padding-top:20px;display:none;" ng-if="!auth">	
+			
+			<!-- <div class="span6" style="padding: 20px 50px;">
 				<div class="login-box">
 				    <div class="lb-header">
 				      <a href="#" class="active" id="login-box-link">Login</a>
@@ -31,7 +46,7 @@
 				      </div>
 				    </form>
 				</div>
-			</div>
+			</div> -->
 
 			<div class="span6" style="padding: 20px 50px;">
 				<div class="login-box">
